@@ -1,0 +1,34 @@
+version: '3'
+services:
+  postgis:
+    image: "kartoza/postgis"
+    environment:
+      POSTGRES_DBNAME: osm
+      POSTGRES_USER: osm
+      POSTGRES_PASS: secretmapping
+    volumes:
+      - postgis-db-data:/var/lib/postgresql
+  kosmtik:
+    image: "joxit/kosmtik"
+    environment:
+      USER_ID: 1000
+    depends_on:
+      - postgis
+    command: kosmtik serve /opt/project/project.mml --host 0.0.0.0
+    volumes:
+      - ./openstreetmap-carto:/opt/project
+      - /usr/share/fonts:/usr/share/fonts:ro
+    ports:
+      - "6789:6789"
+  tileoven:
+    image: "wolf/tileoven"
+    depends_on:
+      - postgis
+    ports:
+      - "20008:20008"
+      - "20009:20009"
+    volumes:
+      - ./tileoven-data:/root/Documents/MapBox
+volumes:
+  postgis-db-data:
+    external: true
