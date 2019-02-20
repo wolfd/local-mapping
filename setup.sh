@@ -27,7 +27,7 @@ read -p "Create docker volume for postgis (postgis-db-data)? " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  docker volume create postgis-db-data
+  docker volume create postgis-db-data-alaska
 fi
 
 echo "Done!"

@@ -7,7 +7,7 @@ services:
       POSTGRES_USER: osm
       POSTGRES_PASS: secretmapping
     volumes:
-      - postgis-db-data:/var/lib/postgresql
+      - postgis-db-data-alaska:/var/lib/postgresql
   kosmtik:
     image: "joxit/kosmtik"
     environment:
@@ -30,5 +30,5 @@ services:
     volumes:
       - ./tileoven-data:/root/Documents/MapBox
 volumes:
-  postgis-db-data:
+  postgis-db-data-alaska:
     external: true
